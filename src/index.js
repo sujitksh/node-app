@@ -8,6 +8,6 @@ import { app } from "./app.js";
  .then(()=>{
     app.listen(port,()=>{
       console.log(`Server is running on port: ${port}`);
-    })
+    });
  })
  .catch(err=>console.log('Database connection failed',err))

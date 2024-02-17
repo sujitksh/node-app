@@ -12,10 +12,10 @@ const registerUser = asyncHandler(async(req, res)=>{
       throw new ApiError(400,"All fields are required")
    }
 
-   const user = User.findOn({
+   const user = await User.findOne({
      $or:[{email},{username}]
    });
-
+ 
    if(user){
     throw new ApiError(409,"user already exit")
    }
@@ -42,7 +42,7 @@ const registerUser = asyncHandler(async(req, res)=>{
      password
    });
 
-   const userResponse = User.findById(createUser._id).select("-password -refreshToken");
+   const userResponse = await User.findById(createUser._id).select("-password -refreshToken");
    if(!userResponse){
       throw new ApiError(500,"something went wrong while registering user")
    }
